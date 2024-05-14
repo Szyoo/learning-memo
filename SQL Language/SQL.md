@@ -58,6 +58,8 @@ SELECT * FROM t LIMIT 5;
 
 ### DISTINCT・去重・重複除く
 
+要用括号包裹，注意！
+
 ```sql
 SELECT DISTINCT(col) FROM t;
 ```
@@ -107,7 +109,7 @@ SELECT MIN(col) FROM t;
 SELECT SUM(col1), co1, col2 FROM t GROUP BY col1, col2;
 ```
 
-和`WHERE`的并用，应该写在`WHERE`之后，此时会先计算`WHERE`，然后计算`GROUP BY`，最后计算`SELECT`中的统计函数。
+和`WHERE`的并用，应该写在`WHERE`之后
 
 ```sql
 SELECT SUM(col1), co1, col2 FROM t 
@@ -135,3 +137,79 @@ HAVING SUM(col1) > 100;
 ```sql
 SELECT name AS '名前' FROM t;
 ```
+
+### JOIN ON：結合・结合
+
+```sql
+SELECT * FROM t
+JOIN t1
+ON t.col = t1.col1;
+```
+
+### LEFT JOIN：
+
+如同字面意思，向左JOIN，即保留左侧（FROM侧）的表格的整体结构，将右侧表格（JOIN侧）向左合并。不会出现当左侧表格中特定行不存在外键数据时，该行会在普通的JOIN中被略过的问题。
+
+```sql
+-- t表的数据和结构将全部保留，即使存在不包含t1表的外键的数据，也不会被省略。
+SELECT * FROM t
+LEFT JOIN t1
+ON t.col = t1.col1;
+```
+
+### JOINを複数回使用
+
+```sql
+SELECT * FROM t
+JOIN t1
+ON t.col = t1.col1
+LEFT JOIN t2
+ON t.col = t2.col2;
+```
+
+## CRUD
+
+### INSERT
+
+AUTO INCREMENT：即ID自增，无需手动在insert句中填入
+
+```sql
+INSERT INTO students (name, course) 
+VALUES('Kate', 'Java');
+```
+
+### UPDATE
+
+WHERE不指定的话就会更新所有的数据行
+
+```sql
+UPDATE students SET name='',course='' WHERE id = 1
+```
+
+### DELETE
+
+```sql
+DELETE FROM students WHERE id = 1;
+```
+
+## 実行順番
+
+上から下へ
+
+FROM
+
+ON・JOIN
+
+WHERE
+
+GROUP BY
+
+関数（COUNT・SUM・AVG・MAX・MIN）
+
+HAVING
+
+SELECT・DISTINCT
+
+ORDER BY
+
+LIMIT
