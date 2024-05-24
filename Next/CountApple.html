@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>りんごの数を増減する</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+        }
+
+        .apple-container {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            padding: 10px;
+            min-width: 100px;
+            display: inline-block;
+            min-height: 2.5rem;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .controls button:active {
+            background-color: #0056b3;
+        }
+
+        #totalCount {
+            font-size: 1.2rem;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="apple-container" id="appleContainer"></div>
+        <div class="controls">
+            <button onclick="increase()">増やす</button>
+            <button onclick="decrease()">減らす</button>
+        </div>
+        <div id="totalCount"></div>
+    </div>
+
+    <script>
+        let appleCount = 0;
+
+        function updateAppleDisplay() {
+            const appleContainer = document.getElementById("appleContainer");
+            appleContainer.innerHTML = "🍎".repeat(appleCount);
+
+            const totalCount = document.getElementById("totalCount");
+            totalCount.textContent = `合計数: ${appleCount}`;
+        }
+
+        function increase() {
+            appleCount++;
+            updateAppleDisplay();
+        }
+
+        function decrease() {
+            if (appleCount > 0) {
+                appleCount--;
+            }
+            updateAppleDisplay();
+        }
+
+        updateAppleDisplay();
+    </script>
+</body>
+
+</html>
