@@ -25,7 +25,7 @@ export default App;
 | 範囲     | 只能在render内的return内使用 | 可在render内的return外使用 |
 | コメント | {/\* \*/}                    | //                         |
 
-当JS要在return内使用，需用中括弧包裹，比如如下例子：
+当JS要在return内使用，需用中括弧`{}`包裹，比如如下例子：
 
 ```java
 render(){
@@ -55,7 +55,7 @@ class App extends React.Component{
 
   render(){
     return(
-      // jsx部分
+      {this.state.name}
     )
   }
 }
